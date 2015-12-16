@@ -3,18 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>IOS那些事－－－－－－通知- | A small step every day</title>
+  <title>IOS那些事－－－－－－通知 | A small step every day</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通知你好，大家好">
+  <meta name="description" content="前序-   通知在我看来，有好处也有坏处。用好了那就是翻云复海，上天入地，无所不能。什么传值、传递动作就是一句话：天气飘来五个字，那都不是事。但是如果用不好，就不好说了，内存没释放、通知没收到、传值错误……，只能坐那望着天气(貌似只有天花板)，呜呼哀哉。为了让不会用通知的童鞋会用通知，让知道通知的童鞋运用自如，让精通通知的童鞋（我去，把精通的童鞋拉出去砍了)。好了。言归正传，进去正文。 
+
+我个人">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IOS那些事－－－－－－通知-">
+<meta property="og:title" content="IOS那些事－－－－－－通知">
 <meta property="og:url" content="http://yoursite.com/2015/12/16/IOS那些事－－－－－－通知/index.html">
 <meta property="og:site_name" content="A small step every day">
-<meta property="og:description" content="通知你好，大家好">
-<meta property="og:updated_time" content="2015-12-16T01:17:01.000Z">
+<meta property="og:description" content="前序-   通知在我看来，有好处也有坏处。用好了那就是翻云复海，上天入地，无所不能。什么传值、传递动作就是一句话：天气飘来五个字，那都不是事。但是如果用不好，就不好说了，内存没释放、通知没收到、传值错误……，只能坐那望着天气(貌似只有天花板)，呜呼哀哉。为了让不会用通知的童鞋会用通知，让知道通知的童鞋运用自如，让精通通知的童鞋（我去，把精通的童鞋拉出去砍了)。好了。言归正传，进去正文。 
+
+我个人">
+<meta property="og:updated_time" content="2015-12-16T04:38:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IOS那些事－－－－－－通知-">
-<meta name="twitter:description" content="通知你好，大家好">
+<meta name="twitter:title" content="IOS那些事－－－－－－通知">
+<meta name="twitter:description" content="前序-   通知在我看来，有好处也有坏处。用好了那就是翻云复海，上天入地，无所不能。什么传值、传递动作就是一句话：天气飘来五个字，那都不是事。但是如果用不好，就不好说了，内存没释放、通知没收到、传值错误……，只能坐那望着天气(貌似只有天花板)，呜呼哀哉。为了让不会用通知的童鞋会用通知，让知道通知的童鞋运用自如，让精通通知的童鞋（我去，把精通的童鞋拉出去砍了)。好了。言归正传，进去正文。 
+
+我个人">
   
     <link rel="alternative" href="/atom.xml" title="A small step every day" type="application/atom+xml">
   
@@ -179,7 +185,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      IOS那些事－－－－－－通知-
+      IOS那些事－－－－－－通知
     </h1>
   
 
@@ -195,7 +201,154 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="u901A_u77E5_u4F60_u597D_uFF0C_u5927_u5BB6_u597D"><a href="#u901A_u77E5_u4F60_u597D_uFF0C_u5927_u5BB6_u597D" class="headerlink" title="通知你好，大家好"></a>通知你好，大家好</h2>
+        <p>前序<br>-<br>   通知在我看来，有好处也有坏处。用好了那就是翻云复海，上天入地，无所不能。什么传值、传递动作就是一句话：天气飘来五个字，那都不是事。但是如果用不好，就不好说了，内存没释放、通知没收到、传值错误……，只能坐那望着天气(貌似只有天花板)，呜呼哀哉。为了让不会用通知的童鞋会用通知，让知道通知的童鞋运用自如，让精通通知的童鞋（我去，把精通的童鞋拉出去砍了)。好了。言归正传，进去正文。 </p>
+<hr>
+<p>我个人感觉通知最常用的几个地方<br>-<br><em>一、从后一个控制器向前一个控制器传递某个信息的时候。</em></p>
+<p>这个有个个人认为最最重要的点要说一下，一个控制器或者一个视图能接受通知的必备基础是这个控制器或者视图是要存在的，用专业一点的术语来说就是要有内存分配的。是走了init的构造方法或者说自己用nib造出来的，不然就算你在里面写了玉皇大帝都认同的接受通知方法也不行。大家想一想就想平时我们(发出通知者)去给远方的朋友寄一封挂念的信（通知信息)，但是寄到的首要条件是你填写的收件人地址（接收通知界面）是有的，邮局(通知中心)才能给你及时（这个词貌似不符合邮政的习惯(^0^)）的送达。你如果直接去邮局把一封地址什么也没写的信去寄，那么对不起，中国仁慈精神病医院欢迎你。所以说在使用通知的时候一定要注意这一点，与你的通知能否成功接收至关重要。平常我自己的习惯是从前一个界面向后一个界面传递信息使用delegate或者block。建议在团队开发中用delegate，这样不会打乱别人模块的代码。个人开发中用block，这样代码简洁、方便。</p>
+<p><em>二、视图和控制器之间传递信息</em></p>
+<p>通常我们写一个界面不会只在控制器上做操作，麻烦一点的界面都要再创建视图，啥？你从来都是在控制器上敲代码，来、来、来保证不打屎你。当我们把代码创建或者nib画出的视图加载到控制器上的时候，通常需要两者交互做一些操作，你不能单独写一个视图只是修饰作用不做任何的功能交互。当我们进行交互的时候有几种方法选择：delegate、block还有我们的猪脚：通知。当进行一对一的行为的时候通常使用前两者比较方便，重要的是他们就是创造出来进行一对一操作的。但是如果是一对多的话（一个动作对应多个事件），那么通知是你的不二之选。</p>
+<p><em>三：经过多个界面传递信息</em></p>
+<p>其实这个和第一种情况也差不多，但是是相隔多个界面，这就是通知的牛逼之处。但是千万要记住。接收通知的界面一定是已经有内存的。</p>
+<hr>
+<p>接下来咱们就说说通知的原理<br>-<br>其实通知原理一问度娘一大堆解释，我在这就用我自己的理解给大家狂谈一下，刚刚上面也提及到了，基本通知有三步走：post发送通知，NSNotificationCenter通知中心处理通知，addobserve接收通知。不论发送通知还是接收通知都只有一条路可走，那就是通知中心。如果你还能找到另外一个路走，那你真是酷炫牛逼呲啦冒火花了。通知中心是一个单例类，管理系统的所有通知事件，不论是我们手动发出的还是系统的通知。在创建通知的时候有两种情况：</p>
+<p><em>1、只是传递动作，不传递具体的信息内容详情</em></p>
+<pre><code>(void)postNotificationName:(NSString *)aName object:(nullable id)anObject;
+</code></pre><p><em>2、传递具体的信息内容，用字典传递。</em></p>
+<pre><code>(void)postNotificationName:(NSString *)aName object:(nullable id)anObject userInfo:(nullable NSDictionary *)aUserInfo;
+</code></pre><p>来个demo：一个完整的创建通知的过程：</p>
+<pre><code>//发送一个通知，不携带参数
+
+NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+[center postNotificationName:@&quot;colorChange&quot; object:nil];
+</code></pre><p>我这是创建了一个不传递值的通知“colorChange”，用于某个事件的执行。</p>
+<p>这个写法其实比较繁琐，我们可以直接合成一句代码：</p>
+<pre><code>NSNotificationCenter *center = [[NSNotificationCenter alloc]init];
+</code></pre><p>如果你这样写了，那么恭喜你，写错了。前面已经说过，通知是单例类，程序里面只能同时有一个通知对象被创建出来。其实如果你单例见多了，你就会发现他们创建方法很好认，特别是系统的单例类：比如偏好设置这个单例类，创建方法：</p>
+<pre><code>NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+</code></pre><p>你会发现只要创建是什么s开头，d开头的，不用看一定是单例类。我去，又扯远了，继续通知的事情。</p>
+<p>发送通知刚刚我们说了不传递参数的demo，来看一个传递参数的demo：</p>
+<pre><code>//要传递的参数
+
+NSDictionary *dic = @{@&quot;name&quot;:@&quot;sun yun fei&quot;};
+
+//发送通知
+
+[[NSNotificationCenter defaultCenter]postNotificationName:@&quot;giveName&quot; object:nil userInfo:dic];
+</code></pre><p>通知如果要传递参数，需要把参数放在字典中去传递。大家看到了这两个小demo，我把方法的object都设为了nil。那么这个参数起到什么作用呢？你猜，你再猜。好吧，还是我告诉你吧，这个参数有点像二次确认的意思，就是在同一个通知name的情况下还可以通过object再次进行细分通知。就拿上面这个小demo说，如果object为空，接收方会接受所有名字为giveName的通知。但是如果object不为空，接收方就会只接收名字为giveName的而且object正确的通知。（晕了木有，有的举个爪）</p>
+<p>接收通知的方法与发送方法理论上是相对的，应该也是有两个方法：</p>
+<p><em>1、只是接收动作</em></p>
+<pre><code>(void)addObserver:(id)observer selector:(SEL)aSelector name:(nullable NSString *)aName object:(nullable id)anObject;
+</code></pre><p>哈哈，你没有眼花，这是用的同一个方法。只是如果有值传递，字典就不为空。</p>
+<p>首先来一个只是动作传递的demo<br>    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor) name:@”colorChange” object:nil];</p>
+<pre><code>/**
+
+*  通知事件
+
+*/
+
+-(void)changeColor
+
+{
+
+self.nextButton.backgroundColor = [UIColor yellowColor];
+
+}
+</code></pre><p>这是一个完整的接收通知的写法，addObserver：self就是说实现这个通知的方法在本类中实现，也就是-(void)changeColor这个方法的实现。selector:@selector(changeColor)就是选择你要实现这个通知的方法，name:@”colorChange”这个名字必须和你发送通知的名字一样，不然鬼知道你要接收的哪个信息。</p>
+<p>传递值的通知demo</p>
+<pre><code>/**
+
+*  接收通知
+
+*/
+
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(giveMyName:) name:@&quot;giveName&quot; object:nil];
+
+/**
+
+*  通知事件
+
+*/
+
+-(void)giveMyName:(NSNotification *)user
+
+{
+
+NSDictionary *dic = user.userInfo;
+
+NSString *name = dic[@&quot;name&quot;];
+
+[self.nextButton setTitle:name forState:UIControlStateNormal];
+
+}
+</code></pre><p>这就是通知传递值的完整写法，你要时刻记着通知传值是用的字典。那么接收过来要解开字典，取出你想要的值。你发现了没，取值的参数用的是NSNotification声明的。NSNotification这个类的作用就是为NSNotificationCenter服务的（个人的理解呀），NSNotification里面包含三个参数：</p>
+<pre><code>@property (readonly, copy) NSString *name;
+
+@property (nullable, readonly, retain) id object;
+
+@property (nullable, readonly, copy) NSDictionary *userInfo;
+</code></pre><p>看到这，琢磨出来点什么木有呢？没错，NSNotificationCenter发送接收通知方法里面的name,object,userInfo都是NSNotification的参数。也就是说你可以通过NSNotification取得通知的所有的信息。怎么样，有没有感觉程序这些所有的类都是一环扣一环的，嘎嘎。</p>
+<p>到这里一个完整的通知过程基本就完成了，但是总感觉还差点什么，差什么呢？知道的大声说出来：是注销通知。对，就是注销通知。现在我们基本都用ARC开发，内存不用我们手动的释放了，但是这不是绝对的，有的地方还是需要我们自己释放内存，通知就是这样。</p>
+<p>释放内存有两个方法：</p>
+<pre><code>- (void)removeObserver:(id)observer;
+
+- (void)removeObserver:(id)observer name:(nullable NSString *)aName object:(nullable id)anObject;
+</code></pre><p>但是我基本上都是用第一个，直接把本控制器活着视图的所有内存都在结束的时候全部释放</p>
+<p>当然啦，你也可以一个一个的去释放，这个人爱好问题，不做深究。</p>
+<p>好了，估计某些大神要数落我了，写的都是啥，明明发送通知还有一个方法。这个我想说的是，我正要说还有一个发送通知的方法呢(^_^)。</p>
+<pre><code>(void)postNotification:(NSNotification *)notification;
+</code></pre><p>这个方法其实和上面两个大同小异，只是把notification单独拿出来定义了（啥，你不知道notification是什么，上面刚刚说了你居然忘了，来人呐，把这个拉出去砍了）。来个小demo大家就知道什么意思了</p>
+<pre><code>//要传递的参数
+
+NSNotification *not = [[NSNotification     alloc]initWithName:@&quot;giveMessage&quot; object:nil userInfo:nil];
+
+//发送通知
+
+[[NSNotificationCenter defaultCenter]postNotification:not];
+</code></pre><p>怎么样，很熟悉吧。</p>
+<p>好了，这次我真的把通知的方法说完了，什么，你们不信？？？气死我了，把系统NSNotification类文件让你看看，是不是都说了</p>
+<p>NSNotification的三个构造方法适用于- (void)postNotification:(NSNotification *)notification;这个方法发送通知：</p>
+<pre><code>- (instancetype)initWithName:(NSString *)name object:(nullable id)object userInfo:(nullable NSDictionary *)userInfo NS_AVAILABLE(10_6, 4_0) NS_DESIGNATED_INITIALIZER;
+
++ (instancetype)notificationWithName:(NSString *)aName object:(nullable id)anObject;
+
++ (instancetype)notificationWithName:(NSString *)aName object:(nullable id)anObject userInfo:(nullable NSDictionary *)aUserInfo;
+</code></pre><p>通知的单例创建：</p>
+<pre><code>+ (NSNotificationCenter *)defaultCenter;
+</code></pre><p>通知的发送与接收方法：</p>
+<pre><code>- (void)addObserver:(id)observer selector:(SEL)aSelector name:(nullable NSString *)aName object:(nullable id)anObject;
+
+- (void)postNotification:(NSNotification *)notification;
+
+- (void)postNotificationName:(NSString *)aName object:(nullable id)anObject;
+
+- (void)postNotificationName:(NSString *)aName object:(nullable id)anObject userInfo:(nullable NSDictionary *)aUserInfo;
+</code></pre><p>通知的移除方法：</p>
+<pre><code>- (void)removeObserver:(id)observer;
+
+- (void)removeObserver:(id)observer name:(nullable NSString *)aName object:(nullable id)anObject;
+</code></pre><p>通知的接收方法以block形式执行：</p>
+<pre><code>- (id)addObserverForName:(nullable NSString *)name object:(nullable id)obj queue:(nullable NSOperationQueue *)queue usingBlock:(void (^)(NSNotification *note))block NS_AVAILABLE(10_6, 4_0);
+</code></pre><p>好吧，我知道错了，果然还有一个方法没和大家说到，那么，你准备好了吗？Let’s Go：</p>
+<pre><code>- (id)addObserverForName:(nullable NSString *)name object:(nullable id)obj queue:(nullable NSOperationQueue *)queue usingBlock:(void (^)(NSNotification *note))block NS_AVAILABLE(10_6, 4_0);
+</code></pre><p>这个方法你从后缀可以看出是在iOS4.0增加的方法，苹果也是与时具进呀。这是通知里面唯一一个用到了block的方法（不知道正在阅读的你对于block理解多少，如果需要可以留言，我去写一个block的文章帮帮你呦），这是一个接收通知的方法，相对于另外一个方法它最大的好处是通知事件的执行直接就在接收通知后面，不用再另外写一个方法去执行，优化代码（这也是block的最大的一个好处吧）。来个小demo</p>
+<pre><code>/**
+
+*  接收通知
+
+*/
+
+[[NSNotificationCenter defaultCenter]addObserverForName:@&quot;giveMessage&quot; object:nil queue:nil usingBlock:^(NSNotification *not)
+
+{
+
+[self.nextButton setTitle:@&quot;block&quot; forState:UIControlStateNormal];
+
+}];
+</code></pre><p>在这里，我把queue线程设为了nil，也就是说这个接收通知方法会与发送通知只占一个线程（我没有把发送通知放在子线程中，所以在这里都是在主线程实现的）。你也自己试试queue后面写一个新的子线程自己实现一下的。usingBlock:^(NSNotification *not)后面这个NSNotification的声明必须要有，你从上面也可以看到，系统方法里面写了，这个必须有，但是你可以不用。如果不写，哼哼，后果不堪设想（就是报错了呗）。</p>
+<hr>
+<p>后序<br>-<br>好了，通知的那些事到此为止了，花了五天左右的时间，在工作之余终于敲定。虽然写的不知道怎么样，但是我确定现在也就这个水平了。如果你没有看懂，还有不理解的地方可以和我说，我会的一定解答，如果是我也迷糊的地方一起寻找答案。下一个文章没有问题的情况下会在下个星期天发出，现在还没想好写什么，如果你有那块不明白，希望看到我对于某个知道点的理解，请留言。</p>
+
       
     </div>
     
@@ -235,7 +388,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="IOS那些事－－－－－－通知" data-title="IOS那些事－－－－－－通知-" data-url="http://yoursite.com/2015/12/16/IOS那些事－－－－－－通知/"></div>
+	<div class="ds-thread" data-thread-key="IOS那些事－－－－－－通知" data-title="IOS那些事－－－－－－通知" data-url="http://yoursite.com/2015/12/16/IOS那些事－－－－－－通知/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
