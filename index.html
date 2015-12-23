@@ -167,7 +167,7 @@
   
     <div class="article-meta">
       <a href="/2015/12/23/weixin/" class="article-date">
-  	<time datetime="2015-12-23T13:04:10.000Z" itemprop="datePublished">2015-12-23</time>
+  	<time datetime="2015-12-23T13:06:43.000Z" itemprop="datePublished">2015-12-23</time>
 </a>
     </div>
   
@@ -194,99 +194,6 @@
 <h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>年末了，一直在忙项目，很少有时候写一些自己的见解。今天挤出一点时间来写一下刚刚完成的微信的支付和跳转到微信的功能。</p>
 <p>如果你还没有做过，可以看一下，作为参考。如果你做过这个了，也可以看一下。总之一句话：有钱的捧个钱场，没钱的捧个人场。😄😄……</p>
 <hr>
-<h1 id="u5FAE_u4FE1_u652F_u4ED8"><a href="#u5FAE_u4FE1_u652F_u4ED8" class="headerlink" title="微信支付"></a>微信支付</h1><p>我这是基于2015年12月在微信官网下载的demo写的支付，如果和你做过的不相同，请查看咱们两个的版本是否一样。</p>
-<p>首先，我个人感觉微信现在的iOS版的前端代码比以前的简化了一些，现在的官网的demo最大的一点是不在前端放置任何数据了，都是一个接口请求下来（前一个版本还是在前端有一个微信设置例子，只是建议说后台给数据）。</p>
-<p>支付和官方demo里面的read.text说的一样，需要两步：调用请求支付，返回支付结果。</p>
-<h2 id="u8BF7_u6C42_u652F_u4ED8"><a href="#u8BF7_u6C42_u652F_u4ED8" class="headerlink" title="请求支付"></a>请求支付</h2><pre><code>+ (NSString *)jumpToBizPay {
-
-//============================================================
-// V3&amp;V4支付流程实现
-// 注意:参数配置请查看服务器端Demo
-// 更新时间：2015年11月20日
-//============================================================
-NSString *urlString   = @&quot;http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=ios&quot;;
-    //解析服务端返回json数据
-    NSError *error;
-    //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if ( response != nil) {
-        NSMutableDictionary *dict = NULL;
-        //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&amp;error];
-
-        NSLog(@&quot;url:%@&quot;,urlString);
-        if(dict != nil){
-            NSMutableString *retcode = [dict objectForKey:@&quot;retcode&quot;];
-            if (retcode.intValue == 0){
-                NSMutableString *stamp  = [dict objectForKey:@&quot;timestamp&quot;];
-
-                //调起微信支付
-                PayReq* req             = [[PayReq alloc] init];
-                req.partnerId           = [dict objectForKey:@&quot;partnerid&quot;];
-                req.prepayId            = [dict objectForKey:@&quot;prepayid&quot;];
-                req.nonceStr            = [dict objectForKey:@&quot;noncestr&quot;];
-                req.timeStamp           = stamp.intValue;
-                req.package             = [dict objectForKey:@&quot;package&quot;];
-                req.sign                = [dict objectForKey:@&quot;sign&quot;];
-                [WXApi sendReq:req];
-                //日志输出
-                NSLog(@&quot;appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@&quot;,[dict objectForKey:@&quot;appid&quot;],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
-                return @&quot;&quot;;
-            }else{
-                return [dict objectForKey:@&quot;retmsg&quot;];
-            }
-        }else{
-            return @&quot;服务器返回错误，未获取到json对象&quot;;
-        }
-    }else{
-        return @&quot;服务器返回错误&quot;;
-    }}
-</code></pre><p>这一个方法放在WXApiRequestHandler这个类里面，这就是一个处理过程的类。</p>
-<h2 id="u652F_u4ED8_u7ED3_u679C_u8FD4_u56DE"><a href="#u652F_u4ED8_u7ED3_u679C_u8FD4_u56DE" class="headerlink" title="支付结果返回"></a>支付结果返回</h2><pre><code>- (void)onResp:(BaseResp *)resp {
-</code></pre><p>if([resp isKindOfClass:[PayResp class]]){<br>        //支付返回结果，实际支付结果需要去微信服务器端查询<br>        NSString <em>strMsg,</em>strTitle = [NSString stringWithFormat:@”支付结果”];</p>
-<pre><code>    switch (resp.errCode) {
-        case WXSuccess:
-            strMsg = @&quot;我的支付结果：成功！&quot;;
-            NSLog(@&quot;支付－PaySuccess，retcode = %d&quot;, resp.errCode);
-            break;
-
-        default:
-            strMsg = [NSString stringWithFormat:@&quot;支付结果：失败！retcode = %d, retstr = %@&quot;, resp.errCode,resp.errStr];
-            NSLog(@&quot;错误，retcode = %d, retstr = %@&quot;, resp.errCode,resp.errStr);
-            break;
-    }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil, nil];
-    [alert show];
-}}
-</code></pre><p>这个方法放在WXApiManager类里面。</p>
-<p>在我们需要调用微信支付的时候，调用方法：</p>
-<pre><code>-(void)bizPay {
-NSString *res = [WXApiRequestHandler jumpToBizPay];
-if( ![@&quot;&quot; isEqual:res] ){
-    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@&quot;支付失败&quot; message:res delegate:nil cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil];
-
-    [alter show];
-}}
-</code></pre><p>这就是微信支付的全部过程，当然还有别忘了在appdelegate里面去调用支付结果的返回方法，这就是一个支付的全部过程。支付宝支付也是这个过程，只是说他们各自的加密等小过程不一样而已。</p>
-<p>有时候你会奇妙的发现你跳转到微信支付的界面之后一个确定按钮，然后其他的什么都没有。我个人感觉可能有几点原因：</p>
-<p>1.你的app里面是不是集成了一些第三方分享之类的，里面包含了分享到微信。如果有，在你appdelegate里面，把导入集成的代码放在微信注册代码的前面执行，确保程序后执行微信支付。</p>
-<p>2.看一下自己的scheme有没有设置对，检查一下自己的微信相关配置。</p>
-<p>3.莫名不知道的错误。删除掉app再次运行就好了。😄😄</p>
-<hr>
-<h1 id="u5E94_u7528_u95F4_u8DF3_u8F6C_u5230_u5FAE_u4FE1"><a href="#u5E94_u7528_u95F4_u8DF3_u8F6C_u5230_u5FAE_u4FE1" class="headerlink" title="应用间跳转到微信"></a>应用间跳转到微信</h1><p>我们需求是点击按钮跳转微信公众平台，并复制一个字符串到剪切板。查了好久，怎么跳转到微信。但让应用件跳转我知道怎么写，但是用的我们微信的scheme怎么都跳不过去。查了文档也是没有这一块的知识点，API。今天正好在偶然间看到了跳转微信间的各个scheme，才知道原来跳转到微信用的是微信定好的scheme。</p>
-<p>如果你对下面这一块代码有疑问，请百度：iOS应用件跳转，相信你会找到答案。</p>
-<pre><code>NSString *urlStr = [NSString stringWithFormat:@&quot;weixin://dl/officialaccounts&quot;];
-//复制字符串到剪切板
-UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-pasteboard.string = @&quot;孙云飞&quot;;
-[[UIApplication sharedApplication]openURL:[NSURL URLWithString:urlStr]];
-</code></pre><p>这就是跳转的代码，点击直接跳转到微信公众平台。当然这里还是加一句判断比较好，判断一下手机是否安装了微信。</p>
-<hr>
-<h1 id="u540E_u8BB0"><a href="#u540E_u8BB0" class="headerlink" title="后记"></a>后记</h1><p>这就是我自己做的微信支付与跳转，希望对你有所帮助。</p>
-<p><a href="https://github.com/sunyunfei/weixinSelfDemo.git" target="_blank" rel="external">demo链接</a>，大家可以看一下（给个星星呗，各位看官），xcode7.2运行环境下写的。</p>
-
       
     </div>
     
@@ -295,6 +202,10 @@ pasteboard.string = @&quot;孙云飞&quot;;
       
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/12/23/weixin/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
