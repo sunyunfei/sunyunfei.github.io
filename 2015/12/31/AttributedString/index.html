@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>对于AttributedString的一点理解 | God helps those who help themselves</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言
+这几天在项目中用到了一点图文混排的内容。但是如果使用github上面那些大神们的框架有一点大材小用，因为关于图文混排的内容就有那么一点，所以自己仔细研究了下NSAttributedString这个类，虽然他和 NSString看着相同，但是用法还是有很大的区别。现特写于此，一方面为了自己加深记忆，另一方面如果有对这方面知识点不理解的童鞋，可以参考一下我的理解。（本文具体是对NSAttribu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对于AttributedString的一点理解">
+<meta property="og:url" content="http://yoursite.com/2015/12/31/AttributedString/index.html">
+<meta property="og:site_name" content="God helps those who help themselves">
+<meta property="og:description" content="前言
+这几天在项目中用到了一点图文混排的内容。但是如果使用github上面那些大神们的框架有一点大材小用，因为关于图文混排的内容就有那么一点，所以自己仔细研究了下NSAttributedString这个类，虽然他和 NSString看着相同，但是用法还是有很大的区别。现特写于此，一方面为了自己加深记忆，另一方面如果有对这方面知识点不理解的童鞋，可以参考一下我的理解。（本文具体是对NSAttribu">
+<meta property="og:image" content="http://images.cnitblog.com/blog/564851/201411/061421165959972.png">
+<meta property="og:updated_time" content="2015-12-31T06:29:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对于AttributedString的一点理解">
+<meta name="twitter:description" content="前言
+这几天在项目中用到了一点图文混排的内容。但是如果使用github上面那些大神们的框架有一点大材小用，因为关于图文混排的内容就有那么一点，所以自己仔细研究了下NSAttributedString这个类，虽然他和 NSString看着相同，但是用法还是有很大的区别。现特写于此，一方面为了自己加深记忆，另一方面如果有对这方面知识点不理解的童鞋，可以参考一下我的理解。（本文具体是对NSAttribu">
+  
+    <link rel="alternative" href="/atom.xml" title="God helps those who help themselves" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars3.githubusercontent.com/u/12780752?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">sun yun fei</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/sunyunfei" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5095272731/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一个苦逼的笑笑程序员，每当有bug时我都会默念：&quot;天将降大任于斯人也，必将苦其心志，劳其体肤......&quot;</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">sun yun fei</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars3.githubusercontent.com/u/12780752?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">sun yun fei</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/sunyunfei" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5095272731/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-AttributedString" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/31/AttributedString/" class="article-date">
+  	<time datetime="2015-12-31T06:29:49.000Z" itemprop="datePublished">2015-12-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      对于AttributedString的一点理解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://images.cnitblog.com/blog/564851/201411/061421165959972.png" alt="NSAttributedString"></p>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><hr>
+<p>这几天在项目中用到了一点图文混排的内容。但是如果使用github上面那些大神们的框架有一点大材小用，因为关于图文混排的内容就有那么一点，所以自己仔细研究了下NSAttributedString这个类，虽然他和 NSString看着相同，但是用法还是有很大的区别。现特写于此，一方面为了自己加深记忆，另一方面如果有对这方面知识点不理解的童鞋，可以参考一下我的理解。（本文具体是对NSAttributedString属性，方法的描述和实例）<br><a id="more"></a></p>
+<h1 id="u6B63_u6587"><a href="#u6B63_u6587" class="headerlink" title="正文"></a>正文</h1><hr>
+<p>我想了好久不知道怎么开始这一块，最后绝对跟着苹果的API文档顺序走，这样可能会好一点。<br>我去看一个类的第一眼看的一定是这个类的构造方法，因为只有存在了才有进行下一步的可能性。<br><a href="https://github.com/sunyunfei/AttributedString.git" target="_blank" rel="external">Demo下载</a></p>
+<h2 id="NSAttributedString"><a href="#NSAttributedString" class="headerlink" title="NSAttributedString"></a>NSAttributedString</h2><p>构造方法：</p>
+<pre><code>//直接创建
+- (instancetype)initWithString:(NSString *)str;
+//创建并附带属性
+- (instancetype)initWithString:(NSString *)str attributes:(nullable NSDictionary&lt;NSString *, id&gt; *)attrs;
+//加载一条已经存在的NSAttributedString
+- (instancetype)initWithAttributedString:(NSAttributedString *)attrStr;
+</code></pre><p>这三个构造方法只要大家对nsstring熟悉，应该都会大致了解他们的意思和使用的不同。代码实例如下：</p>
+<pre><code>//构造方法
+//原始数据
+NSString *originStr = @&quot;某农场爆发疯牛病，一女记者闻讯赶到，采访农场主：“请问这疯牛病是从何而来的“你想想，每天都有人来捏你的XX，但是又不和你做ai，你会不会疯掉“&quot;;
+//第一种
+NSAttributedString *string1 = [[NSAttributedString alloc]
+                               initWithString:originStr];
+
+textView.attributedText = string1;
+
+//第二种
+NSAttributedString *string2 = [[NSAttributedString alloc]
+                               initWithString:originStr
+                               attributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];
+textView.attributedText = string2;
+
+//第三种
+NSAttributedString *string3 =[[NSAttributedString alloc]
+                              initWithAttributedString:string2];
+textView.attributedText = string3;
+</code></pre><p>用一个UITextView显示内容，在这里我们可以看出来，这几种构造方法的不同之处。第一种是直接用字符串创建，第二种在你创建的时候可以直接给他一个属性值，第三种是直接加载一个已经存在的NSAttributedString类型。</p>
+<hr>
+<pre><code>//判断两个NSAttributedString是否相等
+-(BOOL)isEqualToAttributedString:(NSAttributedString *)other;
+</code></pre><p>这里所说的相等，不是内容相等就可以，必须所设置的内容的属性也要相等才可以。代码如下:<br>     NSAttributedString *string4 = [[NSAttributedString alloc]initWithString:originStr<br>                                                                 attributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];</p>
+<pre><code>//判断两个NSAttributedString是否相等
+BOOL flag = [string1 isEqualToAttributedString:string2];
+NSLog(@&quot;flag === %i&quot;,flag);
+
+BOOL flag2 = [string4 isEqualToAttributedString:string3];
+NSLog(@&quot;flag2 === %i,string4=%p,---string3=%p&quot;,flag2,string4,string3);
+//NSObjec的方法
+BOOL flag3 = [string4 isEqual:string3];
+NSLog(@&quot;flag3 === %i,string4=%p,---string3=%p&quot;,flag3,string4,string3);
+</code></pre><p>在这里创建是string4的目的就是看一下，这个方法判断的相等与字符串的地址有没有关系，结果显示，没有关系，只要内容与属性相等，返回的结果就是yes。</p>
+<hr>
+<pre><code>//截取字符
+-(NSAttributedString *)attributedSubstringFromRange:(NSRange)range;    
+</code></pre><p>这个方法的作用就是把本身的字符截取后赋予其他字符，代码如下：<br>    //截取</p>
+<pre><code>NSAttributedString *string5 = [string4 attributedSubstringFromRange:NSMakeRange(0, 10)];
+</code></pre><p>在这里就是把string4的从0到10的字符截取，赋予string5.</p>
+<hr>
+<p>NSAttributedString的方法基本就是这些，还有几个方法是关于内容的遍历，查看的方法</p>
+<pre><code>- (nullable id)attribute:(NSString *)attrName atIndex:(NSUInteger)location effectiveRange:(nullable NSRangePointer)range;
+
+- (NSDictionary&lt;NSString *, id&gt; *)attributesAtIndex:(NSUInteger)location longestEffectiveRange:(nullable NSRangePointer)range inRange:(NSRange)rangeLimit;
+
+- (nullable id)attribute:(NSString *)attrName atIndex:(NSUInteger)location longestEffectiveRange:(nullable NSRangePointer)range inRange:(NSRange)rangeLimit;- (void)enumerateAttributesInRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)(NSDictionary&lt;NSString *, id&gt; *attrs, NSRange range, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+
+- (void)enumerateAttribute:(NSString *)attrName inRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)
+</code></pre><p>他们的作用在我看来最大的用处之一就是输入表情显示的时候去遍历查看用的。这三个方法我没有深究，现在我还没有用到。</p>
+<hr>
+<p>我们都知道，既然有一个不可变的NSAttributedString，一定会有一个对应的可变的这个类所对应的方法（苹果一贯如此）。所以NSMutableAttributedString出现了，而且我们平时使用的时候应该NSMutableAttributedString用的是最多的，因为他可以做增，删，改这些工作，而这些在NSAttributedString中是不具备的。</p>
+<hr>
+<h2 id="NSMutableAttributedString"><a href="#NSMutableAttributedString" class="headerlink" title="NSMutableAttributedString"></a>NSMutableAttributedString</h2><p>首先说构造方法，因为他是继承自NSAttributedString的，所以他可以拥有NSAttributedString的所有的方法。（你再问我怎么知道他们是继承关系的？？，请看下面官方API代码）</p>
+<pre><code>@interface NSMutableAttributedString : NSAttributedString
+</code></pre><p>创建一个可变的：</p>
+<pre><code>NSMutableAttributedString *muString1 = [[NSMutableAttributedString alloc]                          initWithString:originStr];
+</code></pre><p>也可以用</p>
+<pre><code>//官方API
+- (void)setAttributedString:(NSAttributedString *)attrString;
+</code></pre><p> 这个方法增加一个字符串。代码如下：</p>
+<pre><code>[muString1 setAttributedString:string2];
+</code></pre><p>增：</p>
+<p>增加的方式有几种，第一种直接追加</p>
+<pre><code>//官方API
+- (void)appendAttributedString:(NSAttributedString *)attrString;
+</code></pre><p>这个方法是在字符串的末尾直接追加字符（不能是普通的字符串,看API 方法后面的属性提示），代码如下：</p>
+<pre><code>//追加
+[muString1 appendAttributedString:string1];
+</code></pre><p>第二种是插入</p>
+<pre><code>- (void)insertAttributedString:(NSAttributedString *)attrString atIndex:(NSUInteger)loc;
+</code></pre><p>这个方法就是在原来内容中的某个地方插入一段字符，代码如下：</p>
+<pre><code>//插入内容(富文本)
+[muString1 insertAttributedString:string5 atIndex:muString1.length];
+</code></pre><p>删：</p>
+<p>删除字符就有一个方法：</p>
+<pre><code>//API
+- (void)deleteCharactersInRange:(NSRange)range;
+</code></pre><p>代码如下：</p>
+<pre><code>//删除内容
+[muString1 deleteCharactersInRange:NSMakeRange(0, 200)];
+</code></pre><p>改:</p>
+<p>我们来看一下，NSMutableAttributedString的改这个特性</p>
+<pre><code>系统API
+- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)str;
+- (void)replaceCharactersInRange:(NSRange)range withAttributedString:(NSAttributedString *)attrString;
+</code></pre><p>这两个方法的的区别就是一个使用普通字符串替换原来的字符，一个使用NSAttributedString类型的字符串替换原来的字符。代码如下：</p>
+<pre><code>//NSMutableAttributedString
+NSMutableAttributedString *muString1 = [[NSMutableAttributedString alloc]                                            initWithString:originStr];
+
+//内容代替
+[muString1 replaceCharactersInRange:NSMakeRange(0, 10) withString:@&quot;hello，world&quot;];
+
+
+//替代
+[muString1 replaceCharactersInRange:NSMakeRange(0, 10) withAttributedString:string1]
+</code></pre><hr>
+<p>接下来我们要进入使用NSMutableAttributedString的最重要的内容了，给我们的字符串内容增加各种显示属性：颜色，大小，下划线……。<br>设置属性的方法：</p>
+<pre><code>- (void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
+- (void)addAttributes:(NSDictionary&lt;NSString *, id&gt; *)attrs range:(NSRange)range;
+</code></pre><p>这两个方法感觉就是NSMutableAttributedString的精华所在，是他与普通的字符串的最大的区别之处之一（还有图文混排这个区别）。<br>我们可以这样给某段字符串一个大小：</p>
+<pre><code>//字体大小
+[muString1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:35] range:NSMakeRange(0, muString1.length)];
+</code></pre><p>我们也可以这样给某段字符串一个字一颜色：</p>
+<pre><code>//字体颜色
+[muString1 addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, 20)];
+</code></pre><p>我们又可以这样给某段字符串一个背景颜色：</p>
+<pre><code> //字体背景色
+[muString1 addAttribute:NSBackgroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(20, 10)];
+</code></pre><p>我们可以给某段字符串一个下划线显示：</p>
+<pre><code>//下划线
+[muString1 addAttribute:NSUnderlineStyleAttributeName value:@(1) range:NSMakeRange(0, 20)];
+</code></pre><p> 感觉下划线颜色不好看，好的，来换个下划线颜色：</p>
+<pre><code>//下划线颜色
+[muString1 addAttribute:NSUnderlineColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 10)];
+</code></pre><p>给某段字符串删除线显示（个人感觉在电商app里面，原价那个属性最适合这个）：</p>
+<pre><code>//删除线
+[muString1 addAttribute:NSStrikethroughStyleAttributeName value:@(1) range:NSMakeRange(40, 10)];
+</code></pre><p>来点高级的，做个边线（就是字体中空的样式）：</p>
+<pre><code>//边线宽度
+[muString1 addAttribute:NSStrokeWidthAttributeName value:@(1) range:NSMakeRange(10, 30)];
+</code></pre><p>给边线来个颜色（必须有边线宽度才会有效果）：</p>
+<pre><code>//边线颜色,必须有边线宽度
+[muString1 addAttribute:NSStrokeColorAttributeName value:[UIColor blueColor] range:NSMakeRange(10, 10)];
+</code></pre><p> 最后，来个阴影效果：</p>
+<pre><code> //阴影
+ NSShadow *shadow = [[NSShadow alloc]init];
+shadow.shadowColor = [UIColor purpleColor];
+shadow.shadowOffset = CGSizeMake(0, 2);
+[muString1 addAttribute:NSShadowAttributeName value:shadow range:NSMakeRange(0, 50)];
+</code></pre><p>好了，演示的就这么多吧，还有好多属性，童鞋自己去查一下就行了。<br>上面演示的都是加载一个属性的方法，我们也可以以字典的方式一次同时加载多个属性。代码如下：</p>
+<pre><code>[muString1 addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSBackgroundColorAttributeName:[UIColor yellowColor]} range:NSMakeRange(0, muString1.length)];
+</code></pre><p>有一个需要注意，排版这个属性NSVerticalGlyphFormAttributeName。我用了一下但是显示没有反应，上网查了下，原来在ios上这个属性只显示默认的横版。</p>
+<hr>
+<p>如果有的属性你不想用了，又不知道在哪写的了，那么接下来这个方法正好是你需要的：</p>
+<pre><code>- (void)removeAttribute:(NSString *)name range:(NSRange)range;
+</code></pre><p>移除对应的属性，代码如下：</p>
+<pre><code>//移除属性
+[muString1 removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, 20)];
+</code></pre><p>NSParagraphStyleAttributeName 这个属性我上网查了好久，但是每次使用都是失败，说是段落属性，看了api，也就是两个构造，几个属性，但是就是用不对……。</p>
+<hr>
+<p>接下来说下图文混排<br>首先说一下思路就是把图片插入或者追加到NSMutableAttributedString字符串里面。但是我们知道NSMutableAttributedString只能插入或者追加本类型的内容，那么我们怎么把图片插入呢，这里我们就要用到NSTextAttachment这个类。<br>NSTextAttachment这个类里面只有及格方法和属性，大家可以去看一下，这里不再多说。</p>
+<p>插入图片代码如下：</p>
+<pre><code>//插入图片,与字体大小不一样
+NSTextAttachment *attchment = [[NSTextAttachment alloc]init];
+attchment.image = [UIImage imageNamed:@&quot;share.jpg&quot;];
+NSAttributedString *imageString = [NSAttributedString attributedStringWithAttachment:attchment];
+[muString1 insertAttributedString:imageString atIndex:20];    
+</code></pre><p>用完这个方法run一下你会发现图片的大小显示是以真实的大小显示的，那么我们怎么让他适应字体大小呢，我现在有两种办法。<br>一，自己去改变图片大小，代码如下：</p>
+<pre><code>NSTextAttachment *attchment = [[NSTextAttachment alloc]init];
+UIImage *icon = [UIImage imageNamed:@&quot;share.jpg&quot;];
+attchment.image = [self imageWithImage:icon scaleToSize:CGSizeMake(20, 20)];
+NSAttributedString *imageString2 = [NSAttributedString attributedStringWithAttachment:attchment];
+[muString1 insertAttributedString:imageString2 atIndex:20];
+//修改图片大小
+- (UIImage *)imageWithImage:(UIImage *)image scaleToSize:(CGSize)size
+{
+UIImage *newImage = nil;
+
+UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
+[image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+newImage = UIGraphicsGetImageFromCurrentImageContext();
+UIGraphicsEndImageContext();
+
+return newImage;
+}
+</code></pre><p> 这种方法是自己修改图片的大小去适应字体大小，比较麻烦。还有一种方法，自己继承NSTextAttachment这个类，去实现一个NSTextAttachment的方法，代码如下：</p>
+<pre><code>@implementation SYFTextAttachment
+//让加载的内容与对应的富文本大小对应
+-(CGRect)attachmentBoundsForTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(CGRect)lineFrag glyphPosition:(CGPoint)position characterIndex:(NSUInteger)charIndex
+{
+return CGRectMake(0, 0, lineFrag.size.height, lineFrag.size.height);
+}
+</code></pre><p>在使用的时候导入你自己写的这个继承类，然后写入对应的代码：</p>
+<pre><code>//插入图片，与字体大小一样
+SYFTextAttachment *syfattchment = [[SYFTextAttachment alloc]init];
+syfattchment.image = [UIImage imageNamed:@&quot;share.jpg&quot;];
+NSAttributedString *imageString3 = [NSAttributedString attributedStringWithAttachment:syfattchment];
+[muString1 insertAttributedString:imageString3 atIndex:60];
+</code></pre><hr>
+<h1 id="u7ED3_u8BED"><a href="#u7ED3_u8BED" class="headerlink" title="结语"></a>结语</h1><p>本篇结束，我只是一个小菜鸟，写下来的最大的作用怕自己以后忘了。里面有不对的地方，希望指出，我立马改正。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/23/weixin/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信支付与微信应用间跳转</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="AttributedString" data-title="对于AttributedString的一点理解" data-url="http://yoursite.com/2015/12/31/AttributedString/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 sun yun fei
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
