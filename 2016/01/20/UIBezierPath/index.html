@@ -3,16 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015 | God helps those who help themselves</title>
+  <title>UIBezierPath | God helps those who help themselves</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="God helps those who help themselves">
-<meta property="og:url" content="http://yoursite.com/archives/2015/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIBezierPath">
+<meta property="og:url" content="http://yoursite.com/2016/01/20/UIBezierPath/index.html">
 <meta property="og:site_name" content="God helps those who help themselves">
 <meta property="og:description">
+<meta property="og:image" content="http://yoursite.com/file:///Users/syf/Desktop/header.png">
+<meta property="og:image" content="http://yoursite.com/file:///Users/syf/Desktop/1.png">
+<meta property="og:image" content="http://yoursite.com/file:///Users/syf/Desktop/2.png">
+<meta property="og:image" content="http://yoursite.com/file:///Users/syf/Desktop/3.png">
+<meta property="og:image" content="http://yoursite.com/file:///Users/syf/Desktop/4.png">
+<meta property="og:updated_time" content="2016-01-20T03:02:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="God helps those who help themselves">
+<meta name="twitter:title" content="UIBezierPath">
 <meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="God helps those who help themselves" type="application/atom+xml">
@@ -161,130 +167,123 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-UIBezierPath" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2016/01/20/UIBezierPath/" class="article-date">
+  	<time datetime="2016-01-20T02:59:51.000Z" itemprop="datePublished">2016-01-20</time>
+</a>
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UIBezierPath
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/31/AttributedString/" class="archive-article-date">
-  	<time datetime="2015-12-31T06:29:49.000Z" itemprop="datePublished">12月 31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/31/AttributedString/">对于AttributedString的一点理解</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="file:///Users/syf/Desktop/header.png" alt=""><br><a id="more"></a></p>
+<h2 id="what_3F"><a href="#what_3F" class="headerlink" title="what?"></a>what?</h2><p>在iOS中绘制矢量图或者路径的时候通常会用到 UIBezierPath ，它在 UIKit 中，是CoreGraphics对path的封装。使用 UIBezierPath ，可以绘制直线、椭圆、多边形和贝塞尔曲线……。</p>
+<hr>
+<h2 id="why_3F"><a href="#why_3F" class="headerlink" title="why?"></a>why?</h2><p>能够基本上实现CGPathRef的功能，它是OC语言的，相对于c语言的Core Graphics来说更为平易近人。它能够使用ARC，如果我们直接使用CGPathRef的话，还要自己负责在合适的时候释放。</p>
+<hr>
+<h2 id="how_3F"><a href="#how_3F" class="headerlink" title="how?"></a>how?</h2><pre><code> //创建一个
+UIBezierPath *bePath = [UIBezierPath bezierPath];
+//开始位置
+[bePath moveToPoint:CGPointMake(100, 100)];
+//结束位置
+[bePath addLineToPoint:CGPointMake(200, 200)];
+[bePath addLineToPoint:CGPointMake(250, 150)];
+//设置线段端显示的样式
+bePath.lineCapStyle = kCGLineCapRound;
+//设置拐角的样式
+bePath.lineJoinStyle = kCGLineJoinRound;
+//设置边的颜色
+[[UIColor redColor] setStroke];
+//设置边的宽度
+bePath.lineWidth = 5.0;
+//绘画
+[bePath stroke];
+</code></pre><p> 更多复杂的绘制请参考Demo.</p>
+<hr>
+<h2 id="run"><a href="#run" class="headerlink" title="run"></a>run</h2><p><img src="file:///Users/syf/Desktop/1.png" alt="运行界面"><br><img src="file:///Users/syf/Desktop/2.png" alt="运行界面"><br><img src="file:///Users/syf/Desktop/3.png" alt="运行界面"><br><img src="file:///Users/syf/Desktop/4.png" alt="运行界面"></p>
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/31/AttributedString/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对于AttributedString的一点理解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/23/weixin/" class="archive-article-date">
-  	<time datetime="2015-12-23T13:11:42.000Z" itemprop="datePublished">12月 23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/23/weixin/">微信支付与微信应用间跳转</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/16/基于2015年邓白氏码申请/" class="archive-article-date">
-  	<time datetime="2015-12-16T07:38:14.000Z" itemprop="datePublished">12月 16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/16/基于2015年邓白氏码申请/">基于2015年邓白氏码申请</a>
-    </h1>
-  
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/16/IOS那些事－－－－－－通知/" class="archive-article-date">
-  	<time datetime="2015-12-16T01:03:57.000Z" itemprop="datePublished">12月 16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/16/IOS那些事－－－－－－通知/">iOS那些事－－－－－－通知</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="UIBezierPath" data-title="UIBezierPath" data-url="http://yoursite.com/2016/01/20/UIBezierPath/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 </div>
       <footer id="footer">
@@ -310,8 +309,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
